@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 const Button = ({ text, clickFn }) => {
   return (
     <button
@@ -12,8 +12,8 @@ const Button = ({ text, clickFn }) => {
 };
 
 Button.propTypes = {
-    text: PropTypes.string.isRequired,
-    clickFn: PropTypes.string.isRequired
-    };
+  text: PropTypes.string.isRequired,
+  clickFn: PropTypes.func.isRequired,
+};
 
 export default Button;
