@@ -2,6 +2,7 @@
 import  { useState } from 'react';
 import Review from './Component/Review';
 import StarRating from './Component/StarRating';
+import Button from './Component/Button/Button';
 
 const App = () => {
   const [reviews, setReviews] = useState([
@@ -53,7 +54,7 @@ const App = () => {
     <div className="container mx-auto my-8">
       <h1 className="text-3xl font-semibold mb-4">Product Reviews</h1>
 
-      <form onSubmit={handleReviewSubmit} className="mb-4">
+      <div className="mb-4">
         <div className="mb-2">
           <label htmlFor="reviewContent" className="block text-gray-600">Review:</label>
           <textarea
@@ -72,8 +73,8 @@ const App = () => {
             onRate={(rating) => setNewReview({ ...newReview, rating })}
           />
         </div>
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md">Add Review</button>
-      </form>
+        <Button text = "Add Review" clickFn={handleReviewSubmit}></Button>
+      </div>
 
       {reviews.map((review) => (
         <Review key={review.id} {...review} onReply={handleReply} />
