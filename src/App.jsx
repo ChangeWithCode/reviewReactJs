@@ -1,16 +1,24 @@
 // src/App.js
-import  { useState } from 'react';
-import Review from './Component/Review';
-import StarRating from './Component/StarRating';
+import { useState } from "react";
+import Review from "./Component/Review";
+import StarRating from "./Component/StarRating";
+import Button from "./Component/Button/Button";
+import Labels from "./Component/Utils/Labels";
 
 const App = () => {
   const [reviews, setReviews] = useState([
-    { id: 1, author: 'John Doe', content: 'Great product!', rating: 5, replies: [] },
+    {
+      id: 1,
+      author: "John Doe",
+      content: "Great product!",
+      rating: 5,
+      replies: [],
+    },
     // Add more reviews as needed
   ]);
 
   const [newReview, setNewReview] = useState({
-    content: '',
+    content: "",
     rating: 1,
   });
 
@@ -20,7 +28,10 @@ const App = () => {
         if (review.id === reviewId) {
           return {
             ...review,
-            replies: [...review.replies, { author: 'User', content: replyContent }],
+            replies: [
+              ...review.replies,
+              { author: "User", content: replyContent },
+            ],
           };
         }
         return review;
@@ -38,13 +49,13 @@ const App = () => {
     const reviewWithId = {
       ...updatedReview,
       id: reviews.length + 1,
-      author: 'User',
+      author: "User",
       replies: [],
     };
 
     setReviews([...reviews, reviewWithId]);
     setNewReview({
-      content: '',
+      content: "",
       rating: 1,
     });
   };
@@ -52,28 +63,30 @@ const App = () => {
   return (
     <div className="container mx-auto my-8">
       <h1 className="text-3xl font-semibold mb-4">Product Reviews</h1>
-
-      <form onSubmit={handleReviewSubmit} className="mb-4">
+      <div className="mb-4">
         <div className="mb-2">
-          <label htmlFor="reviewContent" className="block text-gray-600">Review:</label>
+          <Labels text="Review:"></Labels>
+
           <textarea
             id="reviewContent"
             className="w-full border rounded-md p-2"
             value={newReview.content}
-            onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
+            onChange={(e) =>
+              setNewReview({ ...newReview, content: e.target.value })
+            }
             required
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="rating" className="block text-gray-600">Rating:</label>
+        <Labels text="Rating:"></Labels>
           <StarRating
             rating={newReview.rating}
-            interactive = {true}
+            interactive={true}
             onRate={(rating) => setNewReview({ ...newReview, rating })}
           />
         </div>
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md">Add Review</button>
-      </form>
+        <Button text="Add Review" clickFn={handleReviewSubmit}></Button>
+      </div>
 
       {reviews.map((review) => (
         <Review key={review.id} {...review} onReply={handleReply} />
